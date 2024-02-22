@@ -5,8 +5,11 @@ project(unicycle LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Add raylib library
-# add_subdirectory(include/raylib)
-
-# Add src directory 
+# Add src directory to the build (makes a build/src directory)
 add_subdirectory(src)
+
+# Link and build external libraries
+add_subdirectory(external/raylib)
+target_include_directories(${PROJECT_NAME} PRIVATE external/raylib/raylib/include)
+target_link_directories(${PROJECT_NAME} PRIVATE external/raylib/raylib/)
+target_link_libraries(${PROJECT_NAME} PRIVATE raylib)
