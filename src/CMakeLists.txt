@@ -1,4 +1,10 @@
-add_executable(${PROJECT_NAME} main.cpp)
+# Link the cart folder
+add_library(cart cart/cart.cpp)
+
+# Link all the .cpp files in src to the executable
+file(GLOB_RECURSE SOURCES "*.cpp")
+message("SOURCES: ${SOURCES}")
+add_executable(${PROJECT_NAME} ${SOURCES})
 
 # Set output directory for executable
 set_target_properties(${PROJECT_NAME} PROPERTIES
