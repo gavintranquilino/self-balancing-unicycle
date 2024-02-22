@@ -1,5 +1,5 @@
 # Link the cart folder
-add_library(cart cart/cart.cpp)
+add_library(bruh bruh/bruh.cpp)
 
 # Link all the .cpp files in src to the executable
 file(GLOB_RECURSE SOURCES "*.cpp")
