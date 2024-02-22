@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "bruh/bruh.h"
+#include <bruh.h>
 
 int main()
 {
