@@ -11,7 +11,8 @@ int main() {
     const int screenWidth = 800;
     const int screenHeight = 450;
 
-    InvertedPendulum::InvertedPendulum pendulum;
+    InvertedPendulum pendulum(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+    
     InitWindow(screenWidth, screenHeight, "Inverted Pendulum");
 
     SetTargetFPS(60);
