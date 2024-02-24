@@ -39,8 +39,6 @@ public:
     {
     }
 
-    // InvertedPendulum();
-
 private:
     double m_timeInterval;
     double m_massBase;

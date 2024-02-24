@@ -6,25 +6,41 @@
 #include <bruh.h>
 #include <invertedpendulum.h>
 
-int main() {
-    // Initialization
+int main() 
+{
     const int screenWidth = 800;
     const int screenHeight = 450;
 
-    InvertedPendulum pendulum(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+    // MMGS, millimeters, grams, seconds
+    double timeInterval = 0.01;
+    double massBase = 50;
+    double massPendulum = 50;
+    double lengthPendulum = 10;
+    double xPos = 0;
+    double angle = 0;
+    double xVel = 0;
+    double angleVel = 0;
+    double xAccel = 0;
+    double angleAccel = 0;
+    double appliedForce = 0;
+    double timeElapsed = 0;
+
+    InvertedPendulum pendulum(timeInterval, massBase, massPendulum, lengthPendulum, xPos, angle, xVel, angleVel, xAccel, angleAccel, appliedForce, timeElapsed);
     
     InitWindow(screenWidth, screenHeight, "Inverted Pendulum");
 
     SetTargetFPS(60);
 
-    // Main loop
-    while (!WindowShouldClose()) {
+    std::cout << MASS_BASE << ' ' << MASS_PENDULUM << ' ' << LENGTH_PENDULUM << '\n';
+
+    // ----- Main game loop -----
+    while (!WindowShouldClose()) 
+    {
         BeginDrawing();
         ClearBackground(WHITE);
         EndDrawing();
     }
 
-    // Cleanup
     CloseWindow();
 
     return 0;
