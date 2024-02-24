@@ -12,9 +12,9 @@ int main()
     const int SCREEN_HEIGHT = 450;
 
     // MMGS, millimeters, grams, seconds
-    double timeInterval = 0.01;
+    double timeInterval = 0.1;
     double massBase = 50;
-    double massPendulum = 50;
+    double massPendulum = 20;
     double lengthPendulum = 50;
     double xPos = SCREEN_WIDTH/ 2;
     double angle = PI / 4; // Radians
@@ -31,7 +31,7 @@ int main()
 
     SetTargetFPS(60);
 
-    std::cout << MASS_BASE << ' ' << MASS_PENDULUM << ' ' << LENGTH_PENDULUM << '\n';
+    std::cout << MASS_BASE << ' ' << MASS_PENDULUM << ' ' << LENGTH_PENDULUM  << ' ' << bruh::nah() << '\n';
 
     // ----- Visual Representation Variables -----
     int yPos = 200;
@@ -47,41 +47,32 @@ int main()
         // change inverted pendulum x position with arrow keys
         if (IsKeyDown(KEY_RIGHT)) 
         {
-            pendulum.setXPos(pendulum.getXPos() + 10);
+            // pendulum.setXPos(pendulum.getXPos() + 10);
+            appliedForce += 1;
         }
         if (IsKeyDown(KEY_LEFT)) 
         {
-            pendulum.setXPos(pendulum.getXPos() - 10);
-        }
-        if (IsKeyDown(KEY_UP)) 
-        {
-            pendulum.setAngle(pendulum.getAngle() + (PI/6));
-        }
-        if (IsKeyDown(KEY_DOWN)) 
-        {
-            pendulum.setAngle(pendulum.getAngle() - (PI/6));
+            // pendulum.setXPos(pendulum.getXPos() - 10);
+            appliedForce -= 1;
         }
 
-        // ----- Draw cart at base x position -----
+        // Draw the cart
         DrawRectangle(pendulum.getXPos() - cartWidth / 2, yPos, cartWidth, cartHeight, BLACK);
 
-        // ----- Draw pendulum as a line in the angle where angle at 0 is up -----
-        double pendulumX = pendulum.getXPos();
-        double pendulumY = yPos;
-
-        // Draw a line starting form pendulumX and Y and ending at pendulumX + length * sin(angle) and pendulumY + length * cos(angle)
+        // Draw the pendulum
         DrawLine(
-                pendulumX, pendulumY, // start line at base of cart
-
-                pendulumX + pendulum.getLengthPendulum() * cos(pendulum.getAngle()),
-                pendulumY - pendulum.getLengthPendulum() * sin(pendulum.getAngle()), 
+                pendulum.getXPos(), yPos, // start line at base of cart
+                pendulum.getXPos() + pendulum.getLengthPendulum() * cos(pendulum.getAngle()),
+                yPos - pendulum.getLengthPendulum() * sin(pendulum.getAngle()), 
                 RED
                 );
-
+        
+        pendulum.update(timeInterval);
+        appliedForce = 0;
 
         // print mouse position
         std::cout << GetMouseX() << ' ' << GetMouseY() << '\n';
-        DrawCircle(GetMouseX(), GetMouseY(), 2, RED);
+        // DrawCircle(GetMouseX(), GetMouseY(), 2, RED);
 
         EndDrawing();
     }

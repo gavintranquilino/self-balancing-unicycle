@@ -5,6 +5,7 @@
 const double MASS_BASE = 50;
 const double MASS_PENDULUM = 50;
 const double LENGTH_PENDULUM = 10;
+const double GRAVITY = 9.8;
 
 class InvertedPendulum
 {
@@ -62,6 +63,8 @@ public:
     void setAngleAccel(double angleAccel) { m_angleAccel = angleAccel; }
     void setAppliedForce(double appliedForce) { m_appliedForce = appliedForce; }
     void setTimeElapsed(double timeElapsed) { m_timeElapsed = timeElapsed; }
+
+    void update(double timeInterval);
 
 private:
     double m_timeInterval;
