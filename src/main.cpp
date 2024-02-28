@@ -12,7 +12,7 @@ int main()
     const int SCREEN_HEIGHT = 450;
 
     // MMGS, millimeters, grams, seconds
-    double timeInterval = 0.01;
+    double timeInterval = 0.5;
     double massBase = 5;
     double massPendulum = 3;
     double lengthPendulum = 5;
@@ -25,7 +25,7 @@ int main()
     double appliedForce = 0;
     double timeElapsed = 0;
 
-    InvertedPendulum pendulum(timeInterval, massBase, massPendulum, lengthPendulum, xPos, angle, xVel, angleVel, xAccel, angleAccel, appliedForce, timeElapsed);
+    InvertedPendulum pendulum(timeInterval, massBase, massPendulum, lengthPendulum, xPos, angle, xVel, angleVel, xAccel, angleAccel, appliedForce, FRICTION_CONST, timeElapsed);
     
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "cartpole simulation");
 
@@ -35,8 +35,8 @@ int main()
 
     // ----- Visual Representation Variables -----
     int yPos = 200;
-    int cartWidth = 100;
-    int cartHeight = 50;
+    int cartWidth = 50;
+    int cartHeight = 30;
 
     // ----- Main game loop -----
     while (!WindowShouldClose()) 
@@ -69,11 +69,10 @@ int main()
                 );
       
         pendulum.update(timeInterval);
-        // appliedForce = 0;
 
-        // print mouse position
+        // ----- Print Mouse Position -----
         std::cout << GetMouseX() << ' ' << GetMouseY() << '\n';
-        // DrawCircle(GetMouseX(), GetMouseY(), 2, RED);
+        DrawCircle(GetMouseX(), GetMouseY(), 2, RED);
 
         // print all the pendulum member variables to the window with a label on what the value is
         DrawText(("xPos: " + std::to_string(pendulum.getXPos())).c_str(), 10, 10, 10, BLACK);

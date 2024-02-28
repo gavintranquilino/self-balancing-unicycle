@@ -5,6 +5,7 @@
 const double MASS_BASE = 50;
 const double MASS_PENDULUM = 50;
 const double LENGTH_PENDULUM = 10;
+const double FRICTION_CONST = 0.2;
 const double GRAVITY = 9.8;
 
 class InvertedPendulum
@@ -23,6 +24,7 @@ public:
         double xAccel, 
         double angleAccel, 
         double appliedForce, 
+        double frictionConst,
         double timeElapsed
     ) :
         m_timeInterval(timeInterval),
@@ -36,6 +38,7 @@ public:
         m_xAccel(xAccel),
         m_angleAccel(angleAccel),
         m_appliedForce(appliedForce),
+        m_frictionConst(frictionConst),
         m_timeElapsed(timeElapsed)
     {
     }
@@ -52,6 +55,7 @@ public:
     double getXAccel() const { return m_xAccel; }
     double getAngleAccel() const { return m_angleAccel; }
     double getAppliedForce() const { return m_appliedForce; }
+    double getFrictionConst() const { return m_frictionConst; }
     double getTimeElapsed() const { return m_timeElapsed; }
 
     // ----- Setters -----
@@ -62,6 +66,7 @@ public:
     void setXAccel(double xAccel) { m_xAccel = xAccel; }
     void setAngleAccel(double angleAccel) { m_angleAccel = angleAccel; }
     void setAppliedForce(double appliedForce) { m_appliedForce = appliedForce; }
+    void setFrictionConst(double frictionConst) { m_frictionConst = frictionConst; }
     void setTimeElapsed(double timeElapsed) { m_timeElapsed = timeElapsed; }
 
     void update(double timeInterval);
@@ -78,6 +83,7 @@ private:
     double m_xAccel;
     double m_angleAccel;
     double m_appliedForce;
+    double m_frictionConst;
     double m_timeElapsed;
 };
 
