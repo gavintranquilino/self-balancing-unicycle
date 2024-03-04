@@ -12,10 +12,10 @@ int main()
     const int SCREEN_HEIGHT = 450;
 
     // MMGS, millimeters, grams, seconds
-    double timeInterval = 0.5;
+    double timeInterval = 0.02;
     double massBase = 5;
     double massPendulum = 3;
-    double lengthPendulum = 5;
+    double lengthPendulum = 1;
     double xPos = SCREEN_WIDTH/ 2;
     double angle = PI/4; // Radians
     double xVel = 0;
@@ -29,9 +29,7 @@ int main()
     
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "cartpole simulation");
 
-    SetTargetFPS(60);
-
-    std::cout << MASS_BASE << ' ' << MASS_PENDULUM << ' ' << LENGTH_PENDULUM  << ' ' << bruh::nah() << '\n';
+    SetTargetFPS(30);
 
     // ----- Visual Representation Variables -----
     int yPos = 200;
