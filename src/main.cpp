@@ -29,7 +29,7 @@ int main()
     
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "cartpole simulation");
 
-    SetTargetFPS(30);
+    SetTargetFPS(60);
 
     // ----- Visual Representation Variables -----
     int yPos = 200;
@@ -41,17 +41,7 @@ int main()
     {
         BeginDrawing();
         ClearBackground(WHITE);
-    
-        // change inverted pendulum x position with arrow keys
-        if (IsKeyDown(KEY_RIGHT)) 
-            pendulum.setXPos(pendulum.getXPos() + 10);
-        if (IsKeyDown(KEY_LEFT)) 
-            pendulum.setXPos(pendulum.getXPos() - 10);
-        if (IsKeyDown(KEY_UP)) 
-            pendulum.setAngle(pendulum.getAngle() + (PI/12));
-        if (IsKeyDown(KEY_DOWN)) 
-            pendulum.setAngle(pendulum.getAngle() - (PI/12));
-
+       
         // Draw the cart
         DrawRectangle(pendulum.getXPos() - cartWidth / 2, yPos, cartWidth, cartHeight, BLACK);
 
@@ -80,7 +70,7 @@ int main()
         DrawText(("xAccel: " + std::to_string(pendulum.getXAccel())).c_str(), 10, 50, 10, BLACK);
         DrawText(("angleAccel: " + std::to_string(pendulum.getAngleAccel())).c_str(), 10, 60, 10, BLACK);
         DrawText(("timeElapsed: " + std::to_string(pendulum.getTimeElapsed())).c_str(), 10, 70, 10, BLACK);
-        DrawText(("appliedForce: " + std::to_string(appliedForce)).c_str(), 10, 80, 10, BLACK);
+        DrawText(("appliedForce: " + std::to_string(pendulum.getAppliedForce())).c_str(), 10, 80, 10, BLACK);
 
         EndDrawing();
     }
