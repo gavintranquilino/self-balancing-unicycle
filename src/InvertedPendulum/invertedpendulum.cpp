@@ -39,9 +39,6 @@ void InvertedPendulum::update(double timeInterval)
     // Euler's method ordinary differential equation
     m_angleVel += m_angleAccel * timeInterval;
     m_angle += m_angleVel * timeInterval;
-    
-    // cout m_xAccel and m_angleAccel with label
-    std::cout << "xAccel: " << m_xAccel << " angleAccel: " << m_angleAccel << '\n';
 
     m_timeElapsed = m_timeElapsed + timeInterval;
 }
