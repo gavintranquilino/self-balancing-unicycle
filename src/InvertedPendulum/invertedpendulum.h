@@ -5,7 +5,7 @@
 const double MASS_BASE = 50;
 const double MASS_PENDULUM = 50;
 const double LENGTH_PENDULUM = 10;
-const double FRICTION_CONST = 0.2;
+const double FRICTION_CONST = 0.4;
 const double GRAVITY = 9.8;
 
 class InvertedPendulum
