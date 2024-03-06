@@ -7,7 +7,6 @@ void InvertedPendulum::update(double timeInterval)
     double netForce = m_appliedForce - (m_frictionConst * m_xVel);
     double massTotal = m_massBase + m_massPendulum;
 
-    // TODO: update the equations of motion
     // double xAccel = (netForce + (m_massPendulum * m_lengthPendulum * ((sin(m_angle) * m_angleVel * m_angleVel) - (cos(m_angle) * m_angleAccel)))) / (massTotal);
     // double angleAccel = (netForce - (massTotal * m_xAccel) + (m_massPendulum * m_lengthPendulum * sin(m_angle) * m_angleVel * m_angleVel)) / (m_massPendulum * m_lengthPendulum * cos(m_angle));
 
@@ -21,7 +20,7 @@ void InvertedPendulum::update(double timeInterval)
     
     // revised march 3 2024, update from highest order and go down
     m_angleAccel = ((m_xAccel * cos(m_angle)) + (GRAVITY * sin(m_angle))) / (m_lengthPendulum);
-    m_angleAccel -= m_angleVel * m_frictionConst;
+    m_angleAccel -= m_angleVel * m_frictionConst; // damping term because of friction
 
     m_angleVel += m_angleAccel * timeInterval;
     m_angle += m_angleVel * timeInterval;
