@@ -16,7 +16,7 @@ int main()
 
     // ----- Inverted Pendulum Variables -----
     // TODO: initialize gravity and friction as variables in this scope instead of manipulating in the header. I want to manipulate all aspects of the pendulum
-    double timeInterval = 0.1;
+    double timeInterval = 0.01666;
     double massBase = 10;
     double massPendulum = 10;
     double lengthPendulum = 1;
@@ -42,12 +42,23 @@ int main()
     int pendulumLength = 100;
     double scaleFactor = 10.0;
     double screenXPos;
+    int newMouseX = 0;
+    int oldMouseX = 0;
 
     // ----- Main game loop -----
     while (!WindowShouldClose()) 
     {
         BeginDrawing();
         ClearBackground(WHITE);
+        
+        if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
+        {
+            pendulum.setAppliedForce((newMouseX - oldMouseX) / (timeInterval * 10));
+        }
+
+        oldMouseX = newMouseX;
+        newMouseX = GetMouseX();
+
        
         // TODO: create draw functions for the object, inside its class
         screenXPos = (SCREEN_WIDTH / 2) + (scaleFactor * pendulum.getXPos()); // use 0 for initial x, and scale up movement
@@ -82,6 +93,8 @@ int main()
         DrawText(("timeElapsed: " + std::to_string(pendulum.getTimeElapsed())).c_str(), 10, 70, 10, BLACK);
         DrawText(("appliedForce: " + std::to_string(pendulum.getAppliedForce())).c_str(), 10, 80, 10, BLACK);
         DrawText(("screenXPos: " + std::to_string(screenXPos)).c_str(), 10, 90, 10, BLACK);
+        
+        pendulum.setAppliedForce(0); 
 
         EndDrawing();
     }
