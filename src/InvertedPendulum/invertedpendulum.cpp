@@ -8,6 +8,7 @@ void InvertedPendulum::update(double timeInterval)
     double massTotal = m_massBase + m_massPendulum;
     
     // TODO: stop movement once the pendulum movement both x and angle have come near rest
+    // TODO: if 1 revolution is completed, the pendulum should not accelerate even further in the same direction, it should still slow down
     
     // ----- X Equations ----- 
     // personally derived equation for xAccel

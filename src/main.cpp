@@ -15,7 +15,6 @@ int main()
     const double FRICTION_CONST = 0.4;
 
     // ----- Inverted Pendulum Variables -----
-    // TODO: initialize gravity and friction as variables in this scope instead of manipulating in the header. I want to manipulate all aspects of the pendulum
     double timeInterval = 0.01666;
     double massBase = 10;
     double massPendulum = 10;
