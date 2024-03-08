@@ -8,17 +8,19 @@
 int main() 
 {
     const int SCREEN_WIDTH = 800;
-    const int SCREEN_HEIGHT = 450;
+    const int SCREEN_HEIGHT = 400;
 
     // MMGS, millimeters, grams, seconds
+
     // ----- Inverted Pendulum Variables -----
+
     // TODO: initialize gravity and friction as variables in this scope instead of manipulating in the header. I want to manipulate all aspects of the pendulum
-    double timeInterval = 0.3;
+    double timeInterval = 0.1;
     double massBase = 10;
     double massPendulum = 10;
     double lengthPendulum = 1;
     double xPos = 0; 
-    double angle = -PI / 4;
+    double angle = PI / 4;
     double xVel = 0;
     double angleVel = 0;
     double xAccel = 0;

@@ -1,12 +1,8 @@
 #ifndef INVERTEDPENDULUM_H
 #define INVERTEDPENDULUM_H
 
-// ----- Constants (will be moved to separate file later) ----- 
-const double MASS_BASE = 50;
-const double MASS_PENDULUM = 50;
-const double LENGTH_PENDULUM = 10;
+const double GRAVITY = 9.81;
 const double FRICTION_CONST = 0.4;
-const double GRAVITY = 9.8;
 
 class InvertedPendulum
 {
