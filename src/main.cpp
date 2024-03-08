@@ -11,9 +11,10 @@ int main()
     const int SCREEN_HEIGHT = 400;
 
     // MMGS, millimeters, grams, seconds
+    const double GRAVITY = 9.81;
+    const double FRICTION_CONST = 0.4;
 
     // ----- Inverted Pendulum Variables -----
-
     // TODO: initialize gravity and friction as variables in this scope instead of manipulating in the header. I want to manipulate all aspects of the pendulum
     double timeInterval = 0.1;
     double massBase = 10;
@@ -28,7 +29,7 @@ int main()
     double appliedForce = 0;
     double timeElapsed = 0;
 
-    InvertedPendulum pendulum(timeInterval, massBase, massPendulum, lengthPendulum, xPos, angle, xVel, angleVel, xAccel, angleAccel, appliedForce, FRICTION_CONST, timeElapsed);
+    InvertedPendulum pendulum(timeInterval, massBase, massPendulum, lengthPendulum, xPos, angle, xVel, angleVel, xAccel, angleAccel, appliedForce, FRICTION_CONST, GRAVITY, timeElapsed);
     
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "cartpole simulation");
 

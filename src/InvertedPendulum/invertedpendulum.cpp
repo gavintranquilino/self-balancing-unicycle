@@ -30,7 +30,7 @@ void InvertedPendulum::update(double timeInterval)
     // m_angleAccel = ((massTotal * GRAVITY * sin(m_angle)) - (m_massPendulum * m_lengthPendulum * m_angleVel * m_angleVel * cos(m_angle) * sin(m_angle)) + (netForce * cos(m_angle))) / ((massTotal * m_lengthPendulum) - (m_massPendulum * m_lengthPendulum * cos(m_angle) * cos(m_angle)));
     
     // personally derived equation for angleAccel, derived from the lagrangian
-    m_angleAccel = ((m_xAccel * cos(m_angle)) + (GRAVITY * sin(m_angle))) / (m_lengthPendulum);
+    m_angleAccel = ((m_xAccel * cos(m_angle)) + (m_gravityConst * sin(m_angle))) / (m_lengthPendulum);
     // m_angleAccel -= m_angleVel * m_frictionConst; // damping term because of friction
     
     // x and y component method (returns constant value)
