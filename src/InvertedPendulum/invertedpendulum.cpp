@@ -8,7 +8,6 @@ void InvertedPendulum::update(double timeInterval)
     double massTotal = m_massBase + m_massPendulum;
     
     // TODO: stop movement once the pendulum movement both x and angle have come near rest
-    // TODO: if 1 revolution is completed, the pendulum should not accelerate even further in the same direction, it should still slow down
     
     // ----- X Equations ----- 
     // personally derived equation for xAccel
@@ -28,10 +27,10 @@ void InvertedPendulum::update(double timeInterval)
 
     // ----- Angle Equations -----
     // from scratch
-    // m_angleAccel = ((massTotal * GRAVITY * sin(m_angle)) - (m_massPendulum * m_lengthPendulum * m_angleVel * m_angleVel * cos(m_angle) * sin(m_angle)) + (netForce * cos(m_angle))) / ((massTotal * m_lengthPendulum) - (m_massPendulum * m_lengthPendulum * cos(m_angle) * cos(m_angle)));
+    m_angleAccel = ((massTotal * m_gravityConst * sin(m_angle)) - (m_massPendulum * m_lengthPendulum * m_angleVel * m_angleVel * cos(m_angle) * sin(m_angle)) + (netForce * cos(m_angle))) / ((massTotal * m_lengthPendulum) - (m_massPendulum * m_lengthPendulum * cos(m_angle) * cos(m_angle)));
     
     // personally derived equation for angleAccel, derived from the lagrangian
-    m_angleAccel = ((m_xAccel * cos(m_angle)) + (m_gravityConst * sin(m_angle))) / (m_lengthPendulum);
+    // m_angleAccel = ((m_xAccel * cos(m_angle)) + (m_gravityConst * sin(m_angle))) / (m_lengthPendulum);
     // m_angleAccel -= m_angleVel * m_frictionConst; // damping term because of friction
     
     // x and y component method (returns constant value)

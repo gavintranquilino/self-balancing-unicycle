@@ -54,6 +54,14 @@ int main()
         {
             pendulum.setAppliedForce((newMouseX - oldMouseX) / (timeInterval * 10));
         }
+        if (IsKeyDown(KEY_UP))
+        {
+            timeInterval += 0.001;
+        }
+        if (IsKeyDown(KEY_DOWN))
+        {
+            timeInterval -= 0.001;
+        }
 
         oldMouseX = newMouseX;
         newMouseX = GetMouseX();
