@@ -62,6 +62,19 @@ int main()
         {
             timeInterval -= 0.001;
         }
+        if (IsKeyDown(KEY_SPACE))
+        {
+            double oldTimeInterval;
+            if (timeInterval != 0)
+            {
+                oldTimeInterval = timeInterval;
+                timeInterval = 0;
+            }
+            else
+            {
+                timeInterval = oldTimeInterval;
+            }
+        }
 
         oldMouseX = newMouseX;
         newMouseX = GetMouseX();
