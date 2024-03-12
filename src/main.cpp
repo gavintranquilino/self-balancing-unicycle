@@ -5,20 +5,18 @@
 
 #include <invertedpendulum.h>
 
+// MMGS, millimeters, grams, seconds
+const double GRAVITY = 9.81;
+const double FRICTION_CONST = 0.4;
+
 int main() 
 {
-    const int SCREEN_WIDTH = 800;
-    const int SCREEN_HEIGHT = 400;
-
     // MMGS, millimeters, grams, seconds
-    const double GRAVITY = 9.81;
-    const double FRICTION_CONST = 0.4;
-
     // ----- Inverted Pendulum Variables -----
     double timeInterval = 0.01666;
-    double massBase = 10;
-    double massPendulum = 10;
-    double lengthPendulum = 1;
+    double massBase = 5;
+    double massPendulum = 5;
+    double lengthPendulum = 3;
     double xPos = 0; 
     double angle = PI / 4;
     double xVel = 0;
@@ -28,14 +26,10 @@ int main()
     double appliedForce = 0;
     double timeElapsed = 0;
 
-    InvertedPendulum pendulum(timeInterval, massBase, massPendulum, lengthPendulum, xPos, angle, xVel, angleVel, xAccel, angleAccel, appliedForce, FRICTION_CONST, GRAVITY, timeElapsed);
-    
-    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "cartpole simulation");
-
-    SetTargetFPS(60);
-
     // ----- Visual Representation Variables -----
-    int yPos = 200;
+    int screenWidthPx = 800;
+    int screenHeightPx = 450;
+    int yPos;
     int cartWidth = 50;
     int cartHeight = 30;
     int pendulumLength = 100;
@@ -44,15 +38,23 @@ int main()
     int newMouseX = 0;
     int oldMouseX = 0;
 
+    InvertedPendulum pendulum(timeInterval, massBase, massPendulum, lengthPendulum, xPos, angle, xVel, angleVel, xAccel, angleAccel, appliedForce, FRICTION_CONST, GRAVITY, timeElapsed);
+    SetConfigFlags(FLAG_WINDOW_RESIZABLE);
+    InitWindow(screenWidthPx, screenHeightPx, "cartpole simulation");
+
+    SetTargetFPS(60);
+
     // ----- Main game loop -----
-    while (!WindowShouldClose()) 
+    while (!WindowShouldClose())
     {
         BeginDrawing();
         ClearBackground(WHITE);
+        screenWidthPx = GetScreenWidth();        
+        screenHeightPx = GetScreenHeight();
         
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
         {
-            pendulum.setAppliedForce((newMouseX - oldMouseX) / (timeInterval * 10));
+            (timeInterval != 0) ? pendulum.setAppliedForce((newMouseX - oldMouseX) / (timeInterval * 10)) : pendulum.setAppliedForce(0);
         }
         if (IsKeyDown(KEY_UP))
         {
@@ -78,12 +80,12 @@ int main()
 
         oldMouseX = newMouseX;
         newMouseX = GetMouseX();
-
        
         // TODO: create draw functions for the object, inside its class
-        screenXPos = (SCREEN_WIDTH / 2) + (scaleFactor * pendulum.getXPos()); // use 0 for initial x, and scale up movement
+        screenXPos = (screenWidthPx / 2) + (scaleFactor * pendulum.getXPos()); // use 0 for initial x, and scale up movement
 
         // Draw the cart
+        yPos = screenHeightPx / 2;
         DrawRectangle((screenXPos - (cartWidth / 2)), yPos, cartWidth, cartHeight, BLACK);
 
         // Draw the pendulum
