@@ -9,6 +9,12 @@
 const double GRAVITY = 9.81;
 const double FRICTION_CONST = 0.4;
 
+void printMousePos()
+{
+    std::cout << GetMouseX() << ' ' << GetMouseY() << '\n';
+    DrawCircle(GetMouseX(), GetMouseY(), 2, RED);
+}
+
 int main() 
 {
     // MMGS, millimeters, grams, seconds
@@ -40,7 +46,7 @@ int main()
 
     InvertedPendulum pendulum(timeInterval, massBase, massPendulum, lengthPendulum, xPos, angle, xVel, angleVel, xAccel, angleAccel, appliedForce, FRICTION_CONST, GRAVITY, timeElapsed);
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    InitWindow(screenWidthPx, screenHeightPx, "cartpole simulation");
+    InitWindow(screenWidthPx, screenHeightPx, "ML Unicycle");
 
     SetTargetFPS(60);
 
@@ -52,18 +58,17 @@ int main()
         screenWidthPx = GetScreenWidth();        
         screenHeightPx = GetScreenHeight();
         
+        // dynamic cart size based on window
+        cartWidth = screenWidthPx / 10;
+        cartHeight = cartWidth / 2;
+        pendulumLength = cartWidth + cartHeight;
+        
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
-        {
             (timeInterval != 0) ? pendulum.setAppliedForce((newMouseX - oldMouseX) / (timeInterval * 10)) : pendulum.setAppliedForce(0);
-        }
         if (IsKeyDown(KEY_UP))
-        {
             timeInterval += 0.001;
-        }
         if (IsKeyDown(KEY_DOWN))
-        {
             timeInterval -= 0.001;
-        }
         if (IsKeyDown(KEY_SPACE))
         {
             double oldTimeInterval;
@@ -77,7 +82,6 @@ int main()
                 timeInterval = oldTimeInterval;
             }
         }
-
         oldMouseX = newMouseX;
         newMouseX = GetMouseX();
        
@@ -93,19 +97,15 @@ int main()
                 screenXPos, yPos, // start line at base of cart
 
                 // Get the end of the pendulum (updated)
-                screenXPos + ((100) * sin(pendulum.getAngle())),
-                yPos - (100) * cos(pendulum.getAngle()), 
+                screenXPos + ((pendulumLength) * sin(pendulum.getAngle())),
+                yPos - (pendulumLength) * cos(pendulum.getAngle()), 
 
                 RED
                 );
       
         pendulum.update(timeInterval);
 
-        // ----- Print Mouse Position -----
-        std::cout << GetMouseX() << ' ' << GetMouseY() << '\n';
-        DrawCircle(GetMouseX(), GetMouseY(), 2, RED);
-
-        // print all the pendulum member variables to the window with a label on what the value is
+        // Display pendulum values
         DrawText(("xPos: " + std::to_string(pendulum.getXPos())).c_str(), 10, 10, 10, BLACK);
         DrawText(("angle: " + std::to_string(pendulum.getAngle())).c_str(), 10, 20, 10, BLACK);
         DrawText(("xVel: " + std::to_string(pendulum.getXVel())).c_str(), 10, 30, 10, BLACK);
@@ -119,6 +119,8 @@ int main()
         pendulum.setAppliedForce(0); 
 
         EndDrawing();
+
+        printMousePos();
     }
 
     CloseWindow();
