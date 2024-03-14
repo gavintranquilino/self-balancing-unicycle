@@ -4,16 +4,13 @@
 #include <raylib.h>
 
 #include <invertedpendulum.h>
+#include <PID.h>
 
 // MMGS, millimeters, grams, seconds
 const double GRAVITY = 9.81;
 const double FRICTION_CONST = 0.4;
 
-void printMousePos()
-{
-    std::cout << GetMouseX() << ' ' << GetMouseY() << '\n';
-    DrawCircle(GetMouseX(), GetMouseY(), 2, RED);
-}
+void printMousePos();
 
 int main() 
 {
@@ -104,6 +101,7 @@ int main()
                 );
       
         pendulum.update(timeInterval);
+        PID::control(pendulum);
 
         // Display pendulum values
         DrawText(("xPos: " + std::to_string(pendulum.getXPos())).c_str(), 10, 10, 10, BLACK);
@@ -120,10 +118,16 @@ int main()
 
         EndDrawing();
 
-        printMousePos();
+        // printMousePos();
     }
 
     CloseWindow();
 
     return 0;
+}
+
+void printMousePos()
+{
+    std::cout << GetMouseX() << ' ' << GetMouseY() << '\n';
+    DrawCircle(GetMouseX(), GetMouseY(), 2, RED);
 }
