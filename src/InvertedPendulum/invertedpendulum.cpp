@@ -8,7 +8,6 @@ void InvertedPendulum::update(double timeInterval)
     double massTotal = m_massBase + m_massPendulum;
     
     // TODO: stop movement once the pendulum movement both x and angle have come near rest
-    // TODO: add a function to stop the pendulum from moving
     // TODO: add a function to reset the pendulum to its initial state
     
     // ----- X Equations ----- 
@@ -44,3 +43,18 @@ void InvertedPendulum::update(double timeInterval)
 
     m_timeElapsed = m_timeElapsed + timeInterval;
 }
+
+double InvertedPendulum::normalizeAngle(double angle)
+{
+    while (angle > M_PI)
+        angle -= 2 * M_PI;
+    while (angle < -M_PI)
+        angle += 2 * M_PI;
+    return angle;
+} 
+
+void InvertedPendulum::calculateError()
+{
+    m_error = normalizeAngle(m_setpoint) - normalizeAngle(m_angle);
+}
+

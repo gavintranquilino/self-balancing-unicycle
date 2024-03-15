@@ -4,7 +4,7 @@
 #include <raylib.h>
 
 #include <invertedpendulum.h>
-#include <PID.h>
+#include <pid_controller.h>
 
 // MMGS, millimeters, grams, seconds
 const double GRAVITY = 9.81;
@@ -101,7 +101,7 @@ int main()
                 );
       
         pendulum.update(timeInterval);
-        PID::control(pendulum);
+        pendulum.calculateError();
 
         // Display pendulum values
         DrawText(("xPos: " + std::to_string(pendulum.getXPos())).c_str(), 10, 10, 10, BLACK);
@@ -113,6 +113,7 @@ int main()
         DrawText(("timeElapsed: " + std::to_string(pendulum.getTimeElapsed())).c_str(), 10, 70, 10, BLACK);
         DrawText(("appliedForce: " + std::to_string(pendulum.getAppliedForce())).c_str(), 10, 80, 10, BLACK);
         DrawText(("screenXPos: " + std::to_string(screenXPos)).c_str(), 10, 90, 10, BLACK);
+        DrawText(("error: " + std::to_string(pendulum.getError())).c_str(), 10, 100, 10, BLACK);
         
         pendulum.setAppliedForce(0); 
 
