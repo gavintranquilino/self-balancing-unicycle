@@ -17,7 +17,7 @@ void InvertedPendulum::update(double timeInterval)
 
     // from scratch
     // m_xAccel = ((m_massPendulum * m_lengthPendulum * m_angleVel * m_angleVel * sin(m_angle)) + ((netForce) - (m_massPendulum * GRAVITY * cos(m_angle) * sin(m_angle)))) / ((massTotal) - (m_massPendulum * cos(m_angle) * cos(m_angle))); // revised scratch
-    // m_xAccel = ((m_massPendulum * m_lengthPendulum * m_angleVel * m_angleVel * sin(m_angle)) + ((-1 * m_massPendulum * GRAVITY * cos(m_angle) * sin(m_angle))) + netForce) / ((massTotal) - (m_massPendulum * cos(m_angle) * cos(m_angle)));
+    // m_xAccel = ((m_massPendulum * m_lengthPendulum * m_angleVel * m_angleVel * sin(m_angle)) + ((-1 * m_massPendulum * m_gravityConst * cos(m_angle) * sin(m_angle))) + netForce) / ((massTotal) - (m_massPendulum * cos(m_angle) * cos(m_angle)));
 
     // x and y component method 
     m_xAccel = (netForce + (m_massPendulum * m_lengthPendulum * ((sin(m_angle) * m_angleVel * m_angleVel) - (cos(m_angle) * m_angleAccel)))) / (massTotal);
@@ -28,7 +28,10 @@ void InvertedPendulum::update(double timeInterval)
 
     // ----- Angle Equations -----
     // from scratch
-    m_angleAccel = ((massTotal * m_gravityConst * sin(m_angle)) - (m_massPendulum * m_lengthPendulum * m_angleVel * m_angleVel * cos(m_angle) * sin(m_angle)) + (netForce * cos(m_angle))) / ((massTotal * m_lengthPendulum) - (m_massPendulum * m_lengthPendulum * cos(m_angle) * cos(m_angle)));
+    // m_angleAccel = ((massTotal * m_gravityConst * sin(m_angle)) - (m_massPendulum * m_lengthPendulum * m_angleVel * m_angleVel * cos(m_angle) * sin(m_angle)) + (netForce * cos(m_angle))) / ((massTotal * m_lengthPendulum) - (m_massPendulum * m_lengthPendulum * cos(m_angle) * cos(m_angle)));
+    
+    // negative applied force
+    m_angleAccel = ((massTotal * m_gravityConst * sin(m_angle)) - (m_massPendulum * m_lengthPendulum * m_angleVel * m_angleVel * cos(m_angle) * sin(m_angle)) + (-netForce * cos(m_angle))) / ((massTotal * m_lengthPendulum) - (m_massPendulum * m_lengthPendulum * cos(m_angle) * cos(m_angle)));
     
     // personally derived equation for angleAccel, derived from the lagrangian
     // m_angleAccel = ((m_xAccel * cos(m_angle)) + (m_gravityConst * sin(m_angle))) / (m_lengthPendulum);

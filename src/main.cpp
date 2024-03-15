@@ -17,8 +17,8 @@ int main()
     // MMGS, millimeters, grams, seconds
     // ----- Inverted Pendulum Variables -----
     double timeInterval = 0.01666;
-    double massBase = 5;
-    double massPendulum = 5;
+    double massBase = 1;
+    double massPendulum = 1;
     double lengthPendulum = 3;
     double xPos = 0; 
     double angle = PI / 4;
@@ -28,6 +28,11 @@ int main()
     double angleAccel = 0;
     double appliedForce = 0;
     double timeElapsed = 0;
+
+    // ----- PID Controller Variables -----
+    double Kp = 100;
+    double Ki = 0;
+    double Kd = 80;
 
     // ----- Visual Representation Variables -----
     int screenWidthPx = 800;
@@ -42,9 +47,12 @@ int main()
     int oldMouseX = 0;
 
     InvertedPendulum pendulum(timeInterval, massBase, massPendulum, lengthPendulum, xPos, angle, xVel, angleVel, xAccel, angleAccel, appliedForce, FRICTION_CONST, GRAVITY, timeElapsed);
+
+    PID::init(Kp, Ki, Kd);
+
+    // ----- Raylib Setup -----
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(screenWidthPx, screenHeightPx, "ML Unicycle");
-
     SetTargetFPS(60);
 
     // ----- Main game loop -----
@@ -54,12 +62,10 @@ int main()
         ClearBackground(WHITE);
         screenWidthPx = GetScreenWidth();        
         screenHeightPx = GetScreenHeight();
+
+        PID::setSetpoint(pendulum.getSetpoint());
         
-        // dynamic cart size based on window
-        cartWidth = screenWidthPx / 10;
-        cartHeight = cartWidth / 2;
-        pendulumLength = cartWidth + cartHeight;
-        
+        // ----- User Input -----
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             (timeInterval != 0) ? pendulum.setAppliedForce((newMouseX - oldMouseX) / (timeInterval * 10)) : pendulum.setAppliedForce(0);
         if (IsKeyDown(KEY_UP))
@@ -81,7 +87,17 @@ int main()
         }
         oldMouseX = newMouseX;
         newMouseX = GetMouseX();
+
+        // ----- PID Controller -----
+        pendulum.setAppliedForce(-1 * PID::compute(pendulum.getError()));
        
+        // ----- Display -----        
+
+        // dynamic cart size based on window
+        cartWidth = screenWidthPx / 10;
+        cartHeight = cartWidth / 2;
+        pendulumLength = cartWidth + cartHeight;
+
         // TODO: create draw functions for the object, inside its class
         screenXPos = (screenWidthPx / 2) + (scaleFactor * pendulum.getXPos()); // use 0 for initial x, and scale up movement
 
@@ -100,9 +116,6 @@ int main()
                 RED
                 );
       
-        pendulum.update(timeInterval);
-        pendulum.calculateError();
-
         // Display pendulum values
         DrawText(("xPos: " + std::to_string(pendulum.getXPos())).c_str(), 10, 10, 10, BLACK);
         DrawText(("angle: " + std::to_string(pendulum.getAngle())).c_str(), 10, 20, 10, BLACK);
@@ -114,10 +127,12 @@ int main()
         DrawText(("appliedForce: " + std::to_string(pendulum.getAppliedForce())).c_str(), 10, 80, 10, BLACK);
         DrawText(("screenXPos: " + std::to_string(screenXPos)).c_str(), 10, 90, 10, BLACK);
         DrawText(("error: " + std::to_string(pendulum.getError())).c_str(), 10, 100, 10, BLACK);
-        
-        pendulum.setAppliedForce(0); 
 
         EndDrawing();
+        
+        pendulum.update(timeInterval);
+        pendulum.calculateError();
+        pendulum.setAppliedForce(0); 
 
         // printMousePos();
     }
