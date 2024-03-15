@@ -31,7 +31,7 @@ int main()
 
     // ----- PID Controller Variables -----
     double Kp = 100;
-    double Ki = 0;
+    double Ki = 0.1;
     double Kd = 80;
 
     // ----- Visual Representation Variables -----
@@ -52,7 +52,7 @@ int main()
 
     // ----- Raylib Setup -----
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
-    InitWindow(screenWidthPx, screenHeightPx, "ML Unicycle");
+    InitWindow(screenWidthPx, screenHeightPx, "Self-Balancing Unicycle");
     SetTargetFPS(60);
 
     // ----- Main game loop -----
