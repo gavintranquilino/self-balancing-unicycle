@@ -56,8 +56,8 @@ double InvertedPendulum::normalizeAngle(double angle)
     return angle;
 } 
 
-void InvertedPendulum::calculateError()
+void InvertedPendulum::calculateErrors(double angleSetpoint, double xPosSetpoint)
 {
-    m_error = normalizeAngle(m_setpoint) - normalizeAngle(m_angle);
+    m_angleError = normalizeAngle(angleSetpoint) - normalizeAngle(m_angle);
+    m_xPosError = xPosSetpoint - m_xPos;
 }
-

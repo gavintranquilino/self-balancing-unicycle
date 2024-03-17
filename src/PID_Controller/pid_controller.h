@@ -17,6 +17,8 @@ public:
 
     void setSetpoint(double setpoint);
 
+    double getSetpoint();
+
     // Compute the control output based on the current process variable (feedback)
     double compute(double current_value);
 

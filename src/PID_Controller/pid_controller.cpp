@@ -27,6 +27,11 @@ void PID_Controller::setSetpoint(double setpoint)
     m_setpoint = setpoint;
 }
 
+double PID_Controller::getSetpoint() 
+{
+    return m_setpoint;
+}
+
 double PID_Controller::compute(double error) 
 {
     m_errorSum += error;

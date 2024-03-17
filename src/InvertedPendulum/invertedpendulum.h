@@ -34,10 +34,7 @@ public:
         m_appliedForce(appliedForce),
         m_frictionConst(frictionConst),
         m_gravityConst(gravityConst),
-        m_timeElapsed(timeElapsed),
-
-        m_error(0),
-        m_setpoint(0)
+        m_timeElapsed(timeElapsed)
     {
     }
 
@@ -57,8 +54,10 @@ public:
     double getGravityConst() const { return m_gravityConst; }
     double getTimeElapsed() const { return m_timeElapsed; }
 
-    double getError() const { return m_error; }
-    double getSetpoint() const { return m_setpoint; }
+    double getXPosError() const { return m_xPosError; }
+    double getXPosSetpoint() const { return m_xPosSetpoint; }
+    double getAngleError() const { return m_angleError; }
+    double getAngleSetpoint() const { return m_angleSetpoint; }
 
     // ----- Setters -----
     void setXPos(double xPos) { m_xPos = xPos; }
@@ -75,7 +74,7 @@ public:
     // ----- Methods -----
     void update(double timeInterval);
     double normalizeAngle(double angle);
-    void calculateError();
+    void calculateErrors(double angleSetpoint, double xPosSetpoint);
 
 private:
     double m_timeInterval;
@@ -94,8 +93,11 @@ private:
 
     double m_timeElapsed;
 
-    double m_error;
-    double m_setpoint;
+    double m_angleError;
+    double m_angleSetpoint;
+
+    double m_xPosError;
+    double m_xPosSetpoint;
 };
 
 #endif

@@ -30,9 +30,13 @@ int main()
     double timeElapsed = 0;
 
     // ----- PID Controller Variables -----
-    double Kp = 100;
-    double Ki = 0.1;
-    double Kd = 80;
+    double angleKp = 100;
+    double angleKi = 0.1;
+    double angleKd = 80;
+
+    double xPosKp = 0.01;
+    double xPosKi = 0;
+    double xPosKd = 0.08;
 
     // ----- Visual Representation Variables -----
     int screenWidthPx = 800;
@@ -48,8 +52,10 @@ int main()
 
     InvertedPendulum pendulum(timeInterval, massBase, massPendulum, lengthPendulum, xPos, angle, xVel, angleVel, xAccel, angleAccel, appliedForce, FRICTION_CONST, GRAVITY, timeElapsed);
 
-    PID_Controller anglePID(Kp, Ki, Kd, 0, 0, 0, 100, -100);
-    PID_Controller xPosPID(Kp, Ki, Kd, 0, 0, 0, 100, -100);
+    PID_Controller xPosPID(xPosKp, xPosKi, xPosKd, 0, 0, 0, PI/6, -PI/6);
+    double outerOutput;
+    PID_Controller anglePID(angleKp, angleKi, angleKd, 0, 0, 0, 80, -80);
+    double innerOutput;
 
     // ----- Raylib Setup -----
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
@@ -63,8 +69,6 @@ int main()
         ClearBackground(WHITE);
         screenWidthPx = GetScreenWidth();        
         screenHeightPx = GetScreenHeight();
-
-        anglePID.setSetpoint(pendulum.getSetpoint());
         
         // ----- User Input -----
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
@@ -89,11 +93,18 @@ int main()
         oldMouseX = newMouseX;
         newMouseX = GetMouseX();
 
-        // ----- Angle PID Controller -----
-        pendulum.setAppliedForce(-1 * anglePID.compute(pendulum.getError()));
+        // ----- PID Controller -----
+        outerOutput = xPosPID.compute(pendulum.getXPosError());
+
+        anglePID.setSetpoint(outerOutput); // create calculate error in the pid controller, i think it's because error is calculated after this. setpoint should be set before error is calculated
+
+        innerOutput = anglePID.compute(pendulum.getAngleError());
+        pendulum.setAppliedForce(-1 * innerOutput);
+        
+    //    std::cout << xPosPID.getSetpoint() << '\n';
+        std::cout << xPosPID.getSetpoint() << '\n';
        
         // ----- Display -----        
-
         // dynamic cart size based on window
         cartWidth = screenWidthPx / 10;
         cartHeight = cartWidth / 2;
@@ -127,19 +138,22 @@ int main()
         DrawText(("timeElapsed: " + std::to_string(pendulum.getTimeElapsed())).c_str(), 10, 70, 10, BLACK);
         DrawText(("appliedForce: " + std::to_string(pendulum.getAppliedForce())).c_str(), 10, 80, 10, BLACK);
         DrawText(("screenXPos: " + std::to_string(screenXPos)).c_str(), 10, 90, 10, BLACK);
-        DrawText(("error: " + std::to_string(pendulum.getError())).c_str(), 10, 100, 10, BLACK);
+        DrawText(("angleError: " + std::to_string(pendulum.getAngleError())).c_str(), 10, 100, 10, BLACK);
+        DrawText(("xPosError: " + std::to_string(pendulum.getXPosError())).c_str(), 10, 110, 10, BLACK);
+        DrawText(("xPosSetpoint: " + std::to_string(xPosPID.getSetpoint())).c_str(), 10, 120, 10, BLACK);
+        DrawText(("mouseX: " + std::to_string(GetMouseX())).c_str(), 10, 130, 10, BLACK);
+
 
         EndDrawing();
         
         pendulum.update(timeInterval);
-        pendulum.calculateError();
+        xPosPID.setSetpoint(((GetMouseX()) - (screenWidthPx / 2)) / scaleFactor); // translate mouse x position to pendulum x
+        pendulum.calculateErrors(anglePID.getSetpoint(), xPosPID.getSetpoint());
         pendulum.setAppliedForce(0); 
 
         // printMousePos();
     }
-
     CloseWindow();
-
     return 0;
 }
 
