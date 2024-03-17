@@ -1,63 +1,54 @@
 #include "pid_controller.h"
 
-namespace PID
+PID_Controller::PID_Controller
+(
+    double Kp, 
+    double Ki, 
+    double Kd, 
+    double setPoint,
+    double errorSum,
+    double prevError,
+    double maxOutput,
+    double minOutput
+) :
+    m_Kp(Kp),
+    m_Ki(Ki),
+    m_Kd(Kd),
+    m_setpoint(setPoint),
+    m_errorSum(errorSum),
+    m_prevError(prevError),
+    m_maxOutput(maxOutput),
+    m_minOutput(minOutput)
 {
-    namespace 
-    {
-            double Kp;           // Proportional gain
-            double Ki;           // Integral gain
-            double Kd;           // Derivative gain
-            double setpoint;     // Desired value
-            double errorSum;    // Accumulated error
-            double prevError;   // Previous error
-            double maxOutput;   // Maximum output value
-            double minOutput;   // Minimum output value
-    }    
+}
 
-    void init(double _Kp, double _Ki, double _Kd) 
-    {
-        Kp = _Kp;
-        Ki = _Ki;
-        Kd = _Kd;
-        setpoint = 0.0;
-        errorSum = 0.0;
-        prevError = 0.0;
-        maxOutput = 999;
-        minOutput = -999;
-    }
+void PID_Controller::setSetpoint(double setpoint) 
+{
+    m_setpoint = setpoint;
+}
 
-    void setSetpoint(double _setpoint) 
-    {
-        setpoint = _setpoint;
-    }
+double PID_Controller::compute(double error) 
+{
+    m_errorSum += error;
 
-    double compute(double error) 
-    {
-        errorSum += error;
+    double proportional = m_Kp * error;
+    double integral = m_Ki * m_errorSum;
+    double derivative = m_Kd * (error - m_prevError);
 
-        // Compute PID terms
-        double proportional = Kp * error;
-        double integral = Ki * errorSum;
-        double derivative = Kd * (error - prevError);
+    m_prevError = error;
 
-        // Update previous error
-        prevError = error;
+    double output = proportional + integral + derivative;
+    
+    if (output > m_maxOutput) 
+        output = m_maxOutput;
+    else if (output < m_minOutput) 
+        output = m_minOutput;
 
-        // Compute control output
-        double output = proportional + integral + derivative;
+    return output;
+}
 
-        // Apply output limits
-        if (output > maxOutput) 
-            output = maxOutput;
-        else if (output < minOutput) 
-            output = minOutput;
-
-        return output;
-    }
-
-    void reset() 
-    {
-        errorSum = 0.0;
-        prevError = 0.0;
-    }
+void PID_Controller::reset() 
+{
+    m_errorSum = 0.0;
+    m_prevError = 0.0;
 }

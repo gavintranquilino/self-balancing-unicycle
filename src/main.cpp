@@ -48,7 +48,8 @@ int main()
 
     InvertedPendulum pendulum(timeInterval, massBase, massPendulum, lengthPendulum, xPos, angle, xVel, angleVel, xAccel, angleAccel, appliedForce, FRICTION_CONST, GRAVITY, timeElapsed);
 
-    PID::init(Kp, Ki, Kd);
+    PID_Controller anglePID(Kp, Ki, Kd, 0, 0, 0, 100, -100);
+    PID_Controller xPosPID(Kp, Ki, Kd, 0, 0, 0, 100, -100);
 
     // ----- Raylib Setup -----
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
@@ -63,7 +64,7 @@ int main()
         screenWidthPx = GetScreenWidth();        
         screenHeightPx = GetScreenHeight();
 
-        PID::setSetpoint(pendulum.getSetpoint());
+        anglePID.setSetpoint(pendulum.getSetpoint());
         
         // ----- User Input -----
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
@@ -88,8 +89,8 @@ int main()
         oldMouseX = newMouseX;
         newMouseX = GetMouseX();
 
-        // ----- PID Controller -----
-        pendulum.setAppliedForce(-1 * PID::compute(pendulum.getError()));
+        // ----- Angle PID Controller -----
+        pendulum.setAppliedForce(-1 * anglePID.compute(pendulum.getError()));
        
         // ----- Display -----        
 
