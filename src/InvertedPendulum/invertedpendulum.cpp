@@ -2,6 +2,8 @@
 #include <cmath>
 #include <iostream>
 
+#include <raylib.h>
+
 void InvertedPendulum::update(double timeInterval)
 {
     double netForce = m_appliedForce - (m_frictionConst * m_xVel);
@@ -65,21 +67,21 @@ void InvertedPendulum::calculateErrors(double angleSetpoint, double xPosSetpoint
 // TODO: add color parameter
 void InvertedPendulum::drawCart(int screenWidthPx, int screenHeightPx, int cartWidth, int cartHeight, double scaleFactor)
 {
-    screenXPos = (screenWidthPx / 2) + (scaleFactor * pendulum.getXPos()); // use 0 for initial x, and scale up movement
-    yPos = screenHeightPx / 2;
+    double screenXPos = (screenWidthPx / 2) + (scaleFactor * m_xPos); // use 0 for initial x, and scale up movement
+    int yPos = screenHeightPx / 2;
     DrawRectangle((screenXPos - (cartWidth / 2)), yPos, cartWidth, cartHeight, BLACK);    
 }
 
 void InvertedPendulum::drawPendulum(int screenWidthPx, int screenHeightPx, int pendulumLength, double scaleFactor)
 {
-    screenXPos = (screenWidthPx / 2) + (scaleFactor * pendulum.getXPos()); // use 0 for initial x, and scale up movement
-    yPos = screenHeightPx / 2;
+    double screenXPos = (screenWidthPx / 2) + (scaleFactor * m_xPos); // use 0 for initial x, and scale up movement
+    int yPos = screenHeightPx / 2;
     DrawLine(
             screenXPos, yPos, // start line at base of cart
 
             // Get the end of the pendulum (updated)
-            screenXPos + ((pendulumLength) * sin(pendulum.getAngle())),
-            yPos - (pendulumLength) * cos(pendulum.getAngle()), 
+            screenXPos + ((pendulumLength) * sin(m_angle)),
+            yPos - (pendulumLength) * cos(m_angle), 
 
             RED
             );

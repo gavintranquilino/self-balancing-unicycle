@@ -1,7 +1,6 @@
 #ifndef INVERTEDPENDULUM_H
 #define INVERTEDPENDULUM_H
 
-
 class InvertedPendulum
 {
 public:

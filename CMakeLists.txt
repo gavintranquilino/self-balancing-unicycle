@@ -8,12 +8,6 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 # Add src directory to the build (makes a build/src directory)
 add_subdirectory(src)
 
-# Link and build external libraries
-add_subdirectory(external/raylib)
-target_include_directories(${PROJECT_NAME} PUBLIC external/raylib/raylib/include)
-target_link_directories(${PROJECT_NAME} PUBLIC external/raylib/raylib/)
-target_link_libraries(${PROJECT_NAME} PUBLIC raylib)
-
 # Automatically grap external libraries from GitHub repos when this prohect is cloned
 find_package(Git QUIET)
 if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
@@ -29,6 +23,12 @@ if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
        endif()
    endif()
 endif()
+
+# Link and build external libraries
+add_subdirectory(external/raylib)
+target_include_directories(${PROJECT_NAME} PUBLIC external/raylib/raylib/include)
+target_link_directories(${PROJECT_NAME} PUBLIC external/raylib/raylib/)
+target_link_libraries(${PROJECT_NAME} PUBLIC raylib)
 
 #           CHECK ALL THE SUBMODULES
 if(NOT EXISTS "${PROJECT_SOURCE_DIR}/external/raylib/CMakeLists.txt")

@@ -41,12 +41,10 @@ int main()
     // ----- Visual Representation Variables -----
     int screenWidthPx = 800;
     int screenHeightPx = 450;
-    int yPos;
     int cartWidth = 50;
     int cartHeight = 30;
     int pendulumLength = 100;
     double scaleFactor = 10.0;
-    double screenXPos;
     int newMouseX = 0;
     int oldMouseX = 0;
 
@@ -110,7 +108,7 @@ int main()
         cartHeight = cartWidth / 2;
         pendulumLength = cartWidth + cartHeight;
         pendulum.drawCart(screenWidthPx, screenHeightPx, cartWidth, cartHeight, scaleFactor);
-        pendulum.drawPendulum(screenWidthPx, screenHeightPx, pendulumLength, scaleFactor)
+        pendulum.drawPendulum(screenWidthPx, screenHeightPx, pendulumLength, scaleFactor);
  
         // Display pendulum values
         DrawText(("xPos: " + std::to_string(pendulum.getXPos())).c_str(), 10, 10, 10, BLACK);
@@ -121,7 +119,6 @@ int main()
         DrawText(("angleAccel: " + std::to_string(pendulum.getAngleAccel())).c_str(), 10, 60, 10, BLACK);
         DrawText(("timeElapsed: " + std::to_string(pendulum.getTimeElapsed())).c_str(), 10, 70, 10, BLACK);
         DrawText(("appliedForce: " + std::to_string(pendulum.getAppliedForce())).c_str(), 10, 80, 10, BLACK);
-        DrawText(("screenXPos: " + std::to_string(screenXPos)).c_str(), 10, 90, 10, BLACK);
         DrawText(("angleError: " + std::to_string(pendulum.getAngleError())).c_str(), 10, 100, 10, BLACK);
         DrawText(("xPosError: " + std::to_string(pendulum.getXPosError())).c_str(), 10, 110, 10, BLACK);
         DrawText(("xPosSetpoint: " + std::to_string(xPosPID.getSetpoint())).c_str(), 10, 120, 10, BLACK);
