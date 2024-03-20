@@ -27,7 +27,7 @@ cd build
 3. Build Makefile with CMake from source
 - This step can be skipped if it was ran previously
 ```
-cmake -S ../
+cmake -S ../ -B .
 ```
 
 4. Build with Makefile

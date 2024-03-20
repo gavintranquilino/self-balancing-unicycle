@@ -70,7 +70,10 @@ int main()
         screenWidthPx = GetScreenWidth();        
         screenHeightPx = GetScreenHeight();
         
-        // ----- User Input -----
+        // TODO: mouse user input for setpoint, program only works if mouse already in position on init
+        // TODO: controls for PID constants?
+        // TODO: reset
+        // ----- User Input ----- 
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             (timeInterval != 0) ? pendulum.setAppliedForce((newMouseX - oldMouseX) / (timeInterval * 10)) : pendulum.setAppliedForce(0);
         if (IsKeyDown(KEY_UP))
@@ -96,38 +99,19 @@ int main()
         // ----- PID Controller -----
         outerOutput = xPosPID.compute(pendulum.getXPosError());
 
-        anglePID.setSetpoint(outerOutput); // create calculate error in the pid controller, i think it's because error is calculated after this. setpoint should be set before error is calculated
+        anglePID.setSetpoint(outerOutput); // output of xPos controller is input of angle controller (the more important controller) 
 
         innerOutput = anglePID.compute(pendulum.getAngleError());
         pendulum.setAppliedForce(-1 * innerOutput);
-        
-    //    std::cout << xPosPID.getSetpoint() << '\n';
-        std::cout << xPosPID.getSetpoint() << '\n';
        
         // ----- Display -----        
         // dynamic cart size based on window
         cartWidth = screenWidthPx / 10;
         cartHeight = cartWidth / 2;
         pendulumLength = cartWidth + cartHeight;
-
-        // TODO: create draw functions for the object, inside its class
-        screenXPos = (screenWidthPx / 2) + (scaleFactor * pendulum.getXPos()); // use 0 for initial x, and scale up movement
-
-        // Draw the cart
-        yPos = screenHeightPx / 2;
-        DrawRectangle((screenXPos - (cartWidth / 2)), yPos, cartWidth, cartHeight, BLACK);
-
-        // Draw the pendulum
-        DrawLine(
-                screenXPos, yPos, // start line at base of cart
-
-                // Get the end of the pendulum (updated)
-                screenXPos + ((pendulumLength) * sin(pendulum.getAngle())),
-                yPos - (pendulumLength) * cos(pendulum.getAngle()), 
-
-                RED
-                );
-      
+        pendulum.drawCart(screenWidthPx, screenHeightPx, cartWidth, cartHeight, scaleFactor);
+        pendulum.drawPendulum(screenWidthPx, screenHeightPx, pendulumLength, scaleFactor)
+ 
         // Display pendulum values
         DrawText(("xPos: " + std::to_string(pendulum.getXPos())).c_str(), 10, 10, 10, BLACK);
         DrawText(("angle: " + std::to_string(pendulum.getAngle())).c_str(), 10, 20, 10, BLACK);
@@ -142,7 +126,6 @@ int main()
         DrawText(("xPosError: " + std::to_string(pendulum.getXPosError())).c_str(), 10, 110, 10, BLACK);
         DrawText(("xPosSetpoint: " + std::to_string(xPosPID.getSetpoint())).c_str(), 10, 120, 10, BLACK);
         DrawText(("mouseX: " + std::to_string(GetMouseX())).c_str(), 10, 130, 10, BLACK);
-
 
         EndDrawing();
         

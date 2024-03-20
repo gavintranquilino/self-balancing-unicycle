@@ -55,9 +55,32 @@ double InvertedPendulum::normalizeAngle(double angle)
         angle += 2 * M_PI;
     return angle;
 } 
-
 void InvertedPendulum::calculateErrors(double angleSetpoint, double xPosSetpoint)
 {
     m_angleError = normalizeAngle(angleSetpoint) - normalizeAngle(m_angle);
     m_xPosError = xPosSetpoint - m_xPos;
+}
+
+// TODO: make this look better lol
+// TODO: add color parameter
+void InvertedPendulum::drawCart(int screenWidthPx, int screenHeightPx, int cartWidth, int cartHeight, double scaleFactor)
+{
+    screenXPos = (screenWidthPx / 2) + (scaleFactor * pendulum.getXPos()); // use 0 for initial x, and scale up movement
+    yPos = screenHeightPx / 2;
+    DrawRectangle((screenXPos - (cartWidth / 2)), yPos, cartWidth, cartHeight, BLACK);    
+}
+
+void InvertedPendulum::drawPendulum(int screenWidthPx, int screenHeightPx, int pendulumLength, double scaleFactor)
+{
+    screenXPos = (screenWidthPx / 2) + (scaleFactor * pendulum.getXPos()); // use 0 for initial x, and scale up movement
+    yPos = screenHeightPx / 2;
+    DrawLine(
+            screenXPos, yPos, // start line at base of cart
+
+            // Get the end of the pendulum (updated)
+            screenXPos + ((pendulumLength) * sin(pendulum.getAngle())),
+            yPos - (pendulumLength) * cos(pendulum.getAngle()), 
+
+            RED
+            );
 }
