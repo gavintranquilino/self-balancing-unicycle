@@ -34,9 +34,9 @@ int main()
     double angleKi = 0.1;
     double angleKd = 80;
 
-    double xPosKp = 0.01;
+    double xPosKp = 0.012;
     double xPosKi = 0;
-    double xPosKd = 0.08;
+    double xPosKd = 0.15;
 
     // ----- Visual Representation Variables -----
     int screenWidthPx = 800;
