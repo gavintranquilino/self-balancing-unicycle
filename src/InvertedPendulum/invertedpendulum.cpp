@@ -63,9 +63,8 @@ void InvertedPendulum::calculateErrors(double angleSetpoint, double xPosSetpoint
     m_xPosError = xPosSetpoint - m_xPos;
 }
 
-// TODO: make this look better lol
 // TODO: add color parameter
-void InvertedPendulum::drawCart(int screenWidthPx, int screenHeightPx, int cartWidth, int cartHeight, double scaleFactor)
+void InvertedPendulum::drawBase(int screenWidthPx, int screenHeightPx, int cartWidth, int cartHeight, double scaleFactor)
 {
     double screenXPos = (screenWidthPx / 2) + (scaleFactor * m_xPos); // use 0 for initial x, and scale up movement
     int yPos = screenHeightPx / 2;

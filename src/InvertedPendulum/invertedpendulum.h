@@ -75,7 +75,7 @@ public:
     void update(double timeInterval);
     double normalizeAngle(double angle);
     void calculateErrors(double angleSetpoint, double xPosSetpoint);
-    void drawCart(int screenWidthPx, int screenHeightPx, int cartWidth, int cartHeight, double scaleFactor);
+    void drawBase(int screenWidthPx, int screenHeightPx, int cartWidth, int cartHeight, double scaleFactor);
     void drawPendulum(int screenWidthPx, int screenHeightPx, int pendulumLength, double scaleFactor);
 
 private:

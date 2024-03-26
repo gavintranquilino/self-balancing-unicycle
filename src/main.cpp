@@ -107,7 +107,7 @@ int main()
         cartWidth = screenWidthPx / 10;
         cartHeight = cartWidth / 2;
         pendulumLength = cartWidth + cartHeight;
-        pendulum.drawCart(screenWidthPx, screenHeightPx, cartWidth, cartHeight, scaleFactor);
+        pendulum.drawBase(screenWidthPx, screenHeightPx, cartWidth, cartHeight, scaleFactor);
         pendulum.drawPendulum(screenWidthPx, screenHeightPx, pendulumLength, scaleFactor);
  
         // Display pendulum values
