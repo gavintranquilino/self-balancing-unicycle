@@ -75,10 +75,10 @@ public:
     void update(double timeInterval);
     double normalizeAngle(double angle);
     void calculateErrors(double angleSetpoint, double xPosSetpoint);
-    void drawBase(int screenWidthPx, int screenHeightPx, int cartWidth, int cartHeight, double scaleFactor);
-    void drawPendulum(int screenWidthPx, int screenHeightPx, int pendulumLength, double scaleFactor);
+    void drawBase(int screenWidthPx, int screenHeightPx, int cartWidth, int cartHeight, double scaleFactor) const;
+    void drawPendulum(int screenWidthPx, int screenHeightPx, int pendulumLength, double scaleFactor) const;
 
-private:
+protected:
     double m_timeInterval;
     double m_massBase;
     double m_massPendulum;

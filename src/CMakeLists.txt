@@ -8,6 +8,8 @@ add_executable(${PROJECT_NAME} main.cpp)
 file(GLOB SRC_ITEMS LIST_DIRECTORIES true ${CMAKE_CURRENT_SOURCE_DIR}/*)
 message("SRC_ITEMS: ${SRC_ITEMS}")
 
+message("CMAKE_CURRENT_SOURCE_DIR: ${CMAKE_CURRENT_SOURCE_DIR}")
+
 # ----- Adding all the libraries in the src directory -----
 # Get just the name of the subdirectory for every SUB_DIR and store in a variable SUB_DIR_NAME using file()
 foreach(item ${SRC_ITEMS})
@@ -17,7 +19,7 @@ foreach(item ${SRC_ITEMS})
             add_subdirectory(${item_name})# Link all the .cpp files in src to the executable
             target_include_directories(${PROJECT_NAME} PUBLIC ${item})
             target_link_libraries(${PROJECT_NAME} PUBLIC ${item_name})
-            message("ADDED AND LINKED LIBRARY IN SRC: ${item_name}")
+            message("ADDED AND LINKED LIBRARY IN SRC: ${item_name} && ITEM PATH: ${item}")
         endif()
     endif()
 endforeach()

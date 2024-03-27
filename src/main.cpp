@@ -4,6 +4,7 @@
 #include <raylib.h>
 
 #include <invertedpendulum.h>
+#include <unicycle.h>
 #include <pid_controller.h>
 
 // MMGS, millimeters, grams, seconds
@@ -48,7 +49,7 @@ int main()
     int newMouseX = 0;
     int oldMouseX = 0;
 
-    InvertedPendulum pendulum(timeInterval, massBase, massPendulum, lengthPendulum, xPos, angle, xVel, angleVel, xAccel, angleAccel, appliedForce, FRICTION_CONST, GRAVITY, timeElapsed);
+    Unicycle pendulum(timeInterval, massBase, massPendulum, lengthPendulum, xPos, angle, xVel, angleVel, xAccel, angleAccel, appliedForce, FRICTION_CONST, GRAVITY, timeElapsed);
 
     PID_Controller xPosPID(xPosKp, xPosKi, xPosKd, 0, 0, 0, PI/6, -PI/6);
     double outerOutput;
