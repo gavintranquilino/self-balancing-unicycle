@@ -29,8 +29,10 @@ public:
     {
     }
     // overrite the drawBase and drawPendulum functions
-    void drawBase(int screenWidthPx, int screenHeightPx, int cartWidth, int cartHeight, double scaleFactor) const;
+    void drawWheel(int screenWidthPx, int screenHeightPx, int cartHeight, double scaleFactor) const;
     void drawPendulum(int screenWidthPx, int screenHeightPx, int pendulumLength, double scaleFactor) const;
+
+    // TODO: draw floor
 };
 
 #endif // UNICYCLE_H
