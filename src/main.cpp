@@ -39,6 +39,8 @@ int main()
     double xPosKi = 0;
     double xPosKd = 0.15;
 
+    bool isControl = true; // is the controller on? is the control loop enabled?
+
     // ----- Visual Representation Variables -----
     int screenWidthPx = 800;
     int screenHeightPx = 450;
@@ -82,27 +84,21 @@ int main()
             timeInterval -= 0.001;
         if (IsKeyDown(KEY_SPACE))
         {
-            double oldTimeInterval;
-            if (timeInterval != 0)
-            {
-                oldTimeInterval = timeInterval;
-                timeInterval = 0;
-            }
-            else
-            {
-                timeInterval = oldTimeInterval;
-            }
+            isControl = !isControl;
         }
         oldMouseX = newMouseX;
         newMouseX = GetMouseX();
 
         // ----- PID Controller -----
-        outerOutput = xPosPID.compute(pendulum.getXPosError());
+        if (isControl) 
+        {
+            outerOutput = xPosPID.compute(pendulum.getXPosError());
 
-        anglePID.setSetpoint(outerOutput); // output of xPos controller is input of angle controller (the more important controller) 
+            anglePID.setSetpoint(outerOutput); // output of xPos controller is input of angle controller (the more important controller) 
 
-        innerOutput = anglePID.compute(pendulum.getAngleError());
-        pendulum.setAppliedForce(-1 * innerOutput);
+            innerOutput = anglePID.compute(pendulum.getAngleError());
+            pendulum.setAppliedForce(-1 * innerOutput);
+        }
        
         // ----- Display -----        
         // dynamic cart size based on window
