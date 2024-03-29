@@ -32,6 +32,6 @@ void Unicycle::drawPendulum(int screenWidthPx, int screenHeightPx, int pendulumL
             screenXPos + ((pendulumLength) * sin(m_angle)),
             yPos - (pendulumLength) * cos(m_angle), 
 
-            BLACK
+            RED
             );
 }

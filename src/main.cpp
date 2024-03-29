@@ -44,6 +44,7 @@ int main()
     int screenHeightPx = 450;
     int cartWidth = 50;
     int cartHeight = 30;
+    int radius = 30;
     int pendulumLength = 100;
     double scaleFactor = 10.0;
     int newMouseX = 0;
@@ -107,10 +108,13 @@ int main()
         // dynamic cart size based on window
         cartWidth = screenWidthPx / 10;
         cartHeight = cartWidth / 2;
+        radius = cartHeight; 
         pendulumLength = cartWidth + cartHeight;
-        pendulum.drawWheel(screenWidthPx, screenHeightPx, cartHeight, scaleFactor); // cartHeight as radius
+
+        DrawRectangle(0, (screenHeightPx / 2) + radius, screenWidthPx, screenHeightPx, BLACK); // the "ground"
+        pendulum.drawWheel(screenWidthPx, screenHeightPx, radius, scaleFactor);
         pendulum.drawPendulum(screenWidthPx, screenHeightPx, pendulumLength, scaleFactor);
- 
+
         // Display pendulum values
         DrawText(("xPos: " + std::to_string(pendulum.getXPos())).c_str(), 10, 10, 10, BLACK);
         DrawText(("angle: " + std::to_string(pendulum.getAngle())).c_str(), 10, 20, 10, BLACK);
@@ -128,7 +132,8 @@ int main()
         EndDrawing();
         
         pendulum.update(timeInterval);
-        xPosPID.setSetpoint(((GetMouseX()) - (screenWidthPx / 2)) / scaleFactor); // translate mouse x position to pendulum x
+        // xPosPID.setSetpoint(((GetMouseX()) - (screenWidthPx / 2)) / scaleFactor); // translate mouse x position to pendulum x
+        xPosPID.setSetpoint(0);
         pendulum.calculateErrors(anglePID.getSetpoint(), xPosPID.getSetpoint());
         pendulum.setAppliedForce(0); 
 
