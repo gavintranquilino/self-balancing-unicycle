@@ -127,9 +127,8 @@ int main()
 
         EndDrawing();
         
-        pendulum.update(timeInterval);
-        // xPosPID.setSetpoint(((GetMouseX()) - (screenWidthPx / 2)) / scaleFactor); // translate mouse x position to pendulum x
-        xPosPID.setSetpoint(0);
+        pendulum.update(timeInterval); 
+        xPosPID.setSetpoint(((GetMouseX()) - (screenWidthPx / 2)) / scaleFactor); // translate mouse x position to pendulum x
         pendulum.calculateErrors(anglePID.getSetpoint(), xPosPID.getSetpoint());
         pendulum.setAppliedForce(0); 
 
