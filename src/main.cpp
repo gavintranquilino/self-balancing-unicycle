@@ -125,6 +125,19 @@ int main()
         DrawText(("xPosSetpoint: " + std::to_string(xPosPID.getSetpoint())).c_str(), 10, 120, 10, BLACK);
         DrawText(("mouseX: " + std::to_string(GetMouseX())).c_str(), 10, 130, 10, BLACK);
 
+        // if isControl, put green light, else put red light. Both display text saying control is on or off
+        if (isControl)
+        {
+            DrawCircle(10, 150, 5, GREEN);
+            DrawText("Control is ON", 20, 150, 10, BLACK);
+        }
+        else
+        {
+            DrawCircle(10, 150, 5, RED);
+            DrawText("Control is OFF", 20, 150, 10, BLACK);
+        }
+
+
         EndDrawing();
         
         pendulum.update(timeInterval); 
