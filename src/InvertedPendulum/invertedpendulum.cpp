@@ -85,3 +85,19 @@ void InvertedPendulum::drawPendulum(int screenWidthPx, int screenHeightPx, int p
             RED
             );
 }
+
+void InvertedPendulum::reset()
+{
+    m_xPos = 0;
+    m_angle = 0;
+    m_xVel = 0;
+    m_angleVel = 0;
+    m_xAccel = 0;
+    m_angleAccel = 0;
+    m_appliedForce = 0;
+    m_timeElapsed = 0;
+    m_angleError = 0;
+    m_angleSetpoint = 0;
+    m_xPosError = 0;
+    m_xPosSetpoint = 0;
+}

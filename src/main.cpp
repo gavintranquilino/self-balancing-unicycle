@@ -22,7 +22,7 @@ int main()
     double massPendulum = 1;
     double lengthPendulum = 3;
     double xPos = 0; 
-    double angle = PI / 4;
+    double angle = 0;
     double xVel = 0;
     double angleVel = 0;
     double xAccel = 0;
@@ -72,7 +72,6 @@ int main()
         screenWidthPx = GetScreenWidth();        
         screenHeightPx = GetScreenHeight();
         
-        // TODO: mouse user input for setpoint, program only works if mouse already in position on init
         // TODO: controls for PID constants?
         // TODO: reset
         // ----- User Input ----- 
@@ -83,9 +82,9 @@ int main()
         if (IsKeyDown(KEY_DOWN))
             timeInterval -= 0.001;
         if (IsKeyDown(KEY_SPACE))
-        {
             isControl = !isControl;
-        }
+        if (IsKeyDown(KEY_R))
+            pendulum.reset();
         oldMouseX = newMouseX;
         newMouseX = GetMouseX();
 
@@ -125,7 +124,7 @@ int main()
         DrawText(("xPosSetpoint: " + std::to_string(xPosPID.getSetpoint())).c_str(), 10, 120, 10, BLACK);
         DrawText(("mouseX: " + std::to_string(GetMouseX())).c_str(), 10, 130, 10, BLACK);
 
-        // if isControl, put green light, else put red light. Both display text saying control is on or off
+        // PID Control On/Off Display
         if (isControl)
         {
             DrawCircle(10, 150, 5, GREEN);
@@ -136,7 +135,6 @@ int main()
             DrawCircle(10, 150, 5, RED);
             DrawText("Control is OFF", 20, 150, 10, BLACK);
         }
-
 
         EndDrawing();
         
