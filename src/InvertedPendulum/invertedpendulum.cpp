@@ -71,7 +71,7 @@ void InvertedPendulum::drawBase(int screenWidthPx, int screenHeightPx, int cartW
     DrawRectangle((screenXPos - (cartWidth / 2)), yPos, cartWidth, cartHeight, BLACK);    
 }
 
-void InvertedPendulum::drawPendulum(int screenWidthPx, int screenHeightPx, int pendulumLength, double scaleFactor) const
+void InvertedPendulum::drawPendulum(int screenWidthPx, int screenHeightPx, int pendulumLength, double scaleFactor, Color color) const
 {
     double screenXPos = (screenWidthPx / 2) + (scaleFactor * m_xPos); // use 0 for initial x, and scale up movement
     int yPos = screenHeightPx / 2;
@@ -82,7 +82,7 @@ void InvertedPendulum::drawPendulum(int screenWidthPx, int screenHeightPx, int p
             screenXPos + ((pendulumLength) * sin(m_angle)),
             yPos - (pendulumLength) * cos(m_angle), 
 
-            RED
+            color
             );
 }
 

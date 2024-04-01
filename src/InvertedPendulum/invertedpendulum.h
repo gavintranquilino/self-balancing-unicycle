@@ -1,6 +1,8 @@
 #ifndef INVERTEDPENDULUM_H
 #define INVERTEDPENDULUM_H
 
+#include <raylib.h>
+
 class InvertedPendulum
 {
 public:
@@ -76,7 +78,7 @@ public:
     double normalizeAngle(double angle);
     void calculateErrors(double angleSetpoint, double xPosSetpoint);
     void drawBase(int screenWidthPx, int screenHeightPx, int cartWidth, int cartHeight, double scaleFactor) const;
-    void drawPendulum(int screenWidthPx, int screenHeightPx, int pendulumLength, double scaleFactor) const;
+    void drawPendulum(int screenWidthPx, int screenHeightPx, int pendulumLength, double scaleFactor, Color color) const;
     void reset();
 
 protected:

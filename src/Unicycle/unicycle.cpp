@@ -20,18 +20,3 @@ void Unicycle::drawWheel(int screenWidthPx, int screenHeightPx, int radius, doub
 
     // TODO: use a loop instead possibly
 }
-
-void Unicycle::drawPendulum(int screenWidthPx, int screenHeightPx, int pendulumLength, double scaleFactor) const
-{
-    double screenXPos = (screenWidthPx / 2) + (scaleFactor * m_xPos); // use 0 for initial x, and scale up movement
-    int yPos = screenHeightPx / 2;
-    DrawLine(
-            screenXPos, yPos, // start line at base of cart
-
-            // Get the end of the pendulum (updated)
-            screenXPos + ((pendulumLength) * sin(m_angle)),
-            yPos - (pendulumLength) * cos(m_angle), 
-
-            RED
-            );
-}
