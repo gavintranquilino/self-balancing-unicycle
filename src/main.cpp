@@ -73,8 +73,7 @@ int main()
         screenHeightPx = GetScreenHeight();
         
         // TODO: controls for PID constants?
-        // TODO: reset
-        // ----- User Input ----- 
+        //  ----- User Input ----- 
         if (IsMouseButtonDown(MOUSE_LEFT_BUTTON))
             (timeInterval != 0) ? pendulum.setAppliedForce((newMouseX - oldMouseX) / (timeInterval * 10)) : pendulum.setAppliedForce(0);
         if (IsKeyDown(KEY_UP))
@@ -119,10 +118,10 @@ int main()
         DrawText(("angleAccel: " + std::to_string(pendulum.getAngleAccel())).c_str(), 10, 60, 10, BLACK);
         DrawText(("timeElapsed: " + std::to_string(pendulum.getTimeElapsed())).c_str(), 10, 70, 10, BLACK);
         DrawText(("appliedForce: " + std::to_string(pendulum.getAppliedForce())).c_str(), 10, 80, 10, BLACK);
-        DrawText(("angleError: " + std::to_string(pendulum.getAngleError())).c_str(), 10, 100, 10, BLACK);
-        DrawText(("xPosError: " + std::to_string(pendulum.getXPosError())).c_str(), 10, 110, 10, BLACK);
-        DrawText(("xPosSetpoint: " + std::to_string(xPosPID.getSetpoint())).c_str(), 10, 120, 10, BLACK);
-        DrawText(("mouseX: " + std::to_string(GetMouseX())).c_str(), 10, 130, 10, BLACK);
+        DrawText(("angleError: " + std::to_string(pendulum.getAngleError())).c_str(), 10, 90, 10, BLACK);
+        DrawText(("xPosError: " + std::to_string(pendulum.getXPosError())).c_str(), 10, 100, 10, BLACK);
+        DrawText(("xPosSetpoint: " + std::to_string(xPosPID.getSetpoint())).c_str(), 10, 110, 10, BLACK);
+        DrawText(("mouseX: " + std::to_string(GetMouseX())).c_str(), 10, 120, 10, BLACK);
 
         // PID Control On/Off Display
         if (isControl)
