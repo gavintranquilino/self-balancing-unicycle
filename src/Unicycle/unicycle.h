@@ -29,7 +29,7 @@ public:
     {
     }
     // overrite the drawBase and drawPendulum functions
-    void drawWheel(int screenWidthPx, int screenHeightPx, int cartHeight, double scaleFactor) const;
+    void drawWheel(int screenWidthPx, int screenHeightPx, int cartHeight, double scaleFactor, Color color) const;
 
     // TODO: draw floor
 };

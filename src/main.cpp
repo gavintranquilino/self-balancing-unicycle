@@ -106,8 +106,8 @@ int main()
         pendulumLength = cartWidth + cartHeight;
 
         DrawRectangle(0, (screenHeightPx / 2) + radius, screenWidthPx, screenHeightPx, BLACK); // the "ground"
-        pendulum.drawWheel(screenWidthPx, screenHeightPx, radius, scaleFactor);
-        pendulum.drawPendulum(screenWidthPx, screenHeightPx, pendulumLength, scaleFactor, BLUE);
+        pendulum.drawWheel(screenWidthPx, screenHeightPx, radius, scaleFactor, BEIGE);
+        pendulum.drawPendulum(screenWidthPx, screenHeightPx, pendulumLength, scaleFactor, SKYBLUE);
 
         // Display pendulum values
         DrawText(("xPos: " + std::to_string(pendulum.getXPos())).c_str(), 10, 10, 10, BLACK);

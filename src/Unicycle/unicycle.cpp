@@ -3,11 +3,11 @@
 #include <invertedpendulum.h>
 #include <cmath>
 
-void Unicycle::drawWheel(int screenWidthPx, int screenHeightPx, int radius, double scaleFactor) const
+void Unicycle::drawWheel(int screenWidthPx, int screenHeightPx, int radius, double scaleFactor, Color color) const
 {
     double screenXPos = (screenWidthPx / 2) + (scaleFactor * m_xPos); // use 0 for initial x, and scale up movement
     int yPos = screenHeightPx / 2;
-    DrawCircle(screenXPos, yPos, radius, GRAY);
+    DrawCircle(screenXPos, yPos, radius, color);
 
     // draw spokes for the unicycle wheel that rotate with the wheel. Calculated using the x position and radius of the wheel
     double normalizePosByRadius = screenXPos / radius;
