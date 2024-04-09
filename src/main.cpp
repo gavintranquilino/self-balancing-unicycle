@@ -84,6 +84,7 @@ int main()
             isControl = !isControl;
         if (IsKeyDown(KEY_R))
             pendulum.reset();
+
         oldMouseX = newMouseX;
         newMouseX = GetMouseX();
 

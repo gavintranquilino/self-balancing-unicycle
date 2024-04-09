@@ -40,6 +40,8 @@ public:
     {
     }
 
+    ~InvertedPendulum() {}
+
     // ----- Getters -----
     double getTimeInterval() const { return m_timeInterval; }
     double getMassBase() const { return m_massBase; }
