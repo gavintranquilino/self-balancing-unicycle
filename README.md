@@ -26,6 +26,7 @@ cd build
 
 3. Build Makefile with CMake from source
 - This step can be skipped if it was ran previously
+- Or if a new library is created and needs to be included in the build
 ```
 cmake -S ../ -B .
 ```
