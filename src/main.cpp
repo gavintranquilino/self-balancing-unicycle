@@ -51,6 +51,8 @@ int main()
     double scaleFactor = 10.0;
     int newMouseX = 0;
     int oldMouseX = 0;
+    Color pendulumColor = SKYBLUE;
+    Color baseColor = BEIGE;
 
     Unicycle pendulum(timeInterval, massBase, massPendulum, lengthPendulum, xPos, angle, xVel, angleVel, xAccel, angleAccel, appliedForce, FRICTION_CONST, GRAVITY, timeElapsed);
 
@@ -107,8 +109,15 @@ int main()
         pendulumLength = cartWidth + cartHeight;
 
         DrawRectangle(0, (screenHeightPx / 2) + radius, screenWidthPx, screenHeightPx, BLACK); // the "ground"
-        pendulum.drawWheel(screenWidthPx, screenHeightPx, radius, scaleFactor, BEIGE);
-        pendulum.drawPendulum(screenWidthPx, screenHeightPx, pendulumLength, scaleFactor, SKYBLUE);
+
+        // baseColor = Color{ pendulum.getAngleError(), 255, 0, 255 }; // RED = Color{ 255, 0, 0, 255 }; GREEN = Color{0, 255, 0, 255}
+        // change the first two parameters of baseColor based on the integer absolute value of the angle error scaled to a scale of 0 to 255  
+        baseColor = Color{ abs(static_cast<int>(pendulum.getAngleError() * 255)), 255 - abs(static_cast<int>(pendulum.getAngleError() * 255)), 0, 255 };
+
+
+
+        pendulum.drawWheel(screenWidthPx, screenHeightPx, radius, scaleFactor, baseColor); // BEIGE = CLITERAL(Color){ 211, 176, 131, 255 }
+        pendulum.drawPendulum(screenWidthPx, screenHeightPx, pendulumLength, scaleFactor, pendulumColor);
 
         // Display pendulum values
         DrawText(("xPos: " + std::to_string(pendulum.getXPos())).c_str(), 10, 10, 10, BLACK);
