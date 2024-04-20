@@ -110,11 +110,10 @@ int main()
 
         DrawRectangle(0, (screenHeightPx / 2) + radius, screenWidthPx, screenHeightPx, BLACK); // the "ground"
 
-        // baseColor = Color{ pendulum.getAngleError(), 255, 0, 255 }; // RED = Color{ 255, 0, 0, 255 }; GREEN = Color{0, 255, 0, 255}
-        // change the first two parameters of baseColor based on the integer absolute value of the angle error scaled to a scale of 0 to 255  
-        baseColor = Color{ abs(static_cast<int>(pendulum.getAngleError() * 255)), 255 - abs(static_cast<int>(pendulum.getAngleError() * 255)), 0, 255 };
-
-
+        int colorValue = static_cast<int>(abs(pendulum.getAngleError() * 255 * 10)); // Scale up the error and convert to int
+        int firstParam = (colorValue > 255) ? 255 : colorValue; // Cap the value at 255 if it exceeds
+        int secondParam = (colorValue > 255) ? 0 : 255 - firstParam; // Calculate the second parameter based on the first parameter
+        baseColor = Color{ firstParam, secondParam, 0, 255 }; // Assign the color
 
         pendulum.drawWheel(screenWidthPx, screenHeightPx, radius, scaleFactor, baseColor); // BEIGE = CLITERAL(Color){ 211, 176, 131, 255 }
         pendulum.drawPendulum(screenWidthPx, screenHeightPx, pendulumLength, scaleFactor, pendulumColor);
