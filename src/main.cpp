@@ -113,7 +113,12 @@ int main()
         int colorValue = static_cast<int>(abs(pendulum.getAngleError() * 255 * 10)); // Scale up the error and convert to int
         int firstParam = (colorValue > 255) ? 255 : colorValue; // Cap the value at 255 if it exceeds
         int secondParam = (colorValue > 255) ? 0 : 255 - firstParam; // Calculate the second parameter based on the first parameter
-        baseColor = Color{ firstParam, secondParam, 0, 255 }; // Assign the color
+        pendulumColor = Color{ firstParam, secondParam, 0, 255 }; // Assign the color
+
+        colorValue = static_cast<int>(abs(pendulum.getXPosError() * 255));
+        firstParam = (colorValue > 255) ? 255 : colorValue;
+        secondParam = (colorValue > 255) ? 0 : 255 - firstParam;
+        baseColor = Color{ firstParam, secondParam, 0, 255 };
 
         pendulum.drawWheel(screenWidthPx, screenHeightPx, radius, scaleFactor, baseColor); // BEIGE = CLITERAL(Color){ 211, 176, 131, 255 }
         pendulum.drawPendulum(screenWidthPx, screenHeightPx, pendulumLength, scaleFactor, pendulumColor);
