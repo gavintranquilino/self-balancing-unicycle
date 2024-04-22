@@ -51,6 +51,9 @@ int main()
     double scaleFactor = 10.0;
     int newMouseX = 0;
     int oldMouseX = 0;
+    int colorValue = 0;
+    int firstParam = 0;
+    int secondParam = 0;
     Color pendulumColor = SKYBLUE;
     Color baseColor = BEIGE;
 
@@ -110,9 +113,9 @@ int main()
 
         DrawRectangle(0, (screenHeightPx / 2) + radius, screenWidthPx, screenHeightPx, BLACK); // the "ground"
 
-        int colorValue = static_cast<int>(abs(pendulum.getAngleError() * 255 * 10)); // Scale up the error and convert to int
-        int firstParam = (colorValue > 255) ? 255 : colorValue; // Cap the value at 255 if it exceeds
-        int secondParam = (colorValue > 255) ? 0 : 255 - firstParam; // Calculate the second parameter based on the first parameter
+        colorValue = static_cast<int>(abs(pendulum.getAngleError() * 255 * 10)); // Scale up the error and convert to int
+        firstParam = (colorValue > 255) ? 255 : colorValue; // Cap the value at 255 if it exceeds
+        secondParam = (colorValue > 255) ? 0 : 255 - firstParam; // Calculate the second parameter based on the first parameter
         pendulumColor = Color{ firstParam, secondParam, 0, 255 }; // Assign the color
 
         colorValue = static_cast<int>(abs(pendulum.getXPosError() * 255));
