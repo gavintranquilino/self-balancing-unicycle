@@ -67,7 +67,7 @@ int main()
     // ----- Raylib Setup -----
     SetConfigFlags(FLAG_WINDOW_RESIZABLE);
     InitWindow(screenWidthPx, screenHeightPx, "Self-Balancing Unicycle");
-    SetTargetFPS(60);
+    SetTargetFPS(120);
 
     // ----- Main game loop -----
     while (!WindowShouldClose())
@@ -153,7 +153,9 @@ int main()
         }
 
         EndDrawing();
-        
+
+        // TODO: This invalidates the up and down arrows for speed control. Figure out how to fix that 
+        timeInterval = GetFrameTime(); // should be deltaTime     
         pendulum.update(timeInterval); 
         xPosPID.setSetpoint(((GetMouseX()) - (screenWidthPx / 2)) / scaleFactor); // translate mouse x position to pendulum x
         pendulum.calculateErrors(anglePID.getSetpoint(), xPosPID.getSetpoint());
