@@ -55,7 +55,6 @@ int main()
     int firstParam = 0;
     int secondParam = 0;
     Color pendulumColor = SKYBLUE;
-    Color baseColor = BEIGE;
 
     Unicycle pendulum(timeInterval, massBase, massPendulum, lengthPendulum, xPos, angle, xVel, angleVel, xAccel, angleAccel, appliedForce, FRICTION_CONST, GRAVITY, timeElapsed);
 
@@ -118,12 +117,7 @@ int main()
         secondParam = (colorValue > 255) ? 0 : 255 - firstParam; // Calculate the second parameter based on the first parameter
         pendulumColor = Color{ firstParam, secondParam, 0, 255 }; // Assign the color
 
-        colorValue = static_cast<int>(abs(pendulum.getXPosError() * 255));
-        firstParam = (colorValue > 255) ? 255 : colorValue;
-        secondParam = (colorValue > 255) ? 0 : 255 - firstParam;
-        baseColor = Color{ firstParam, secondParam, 0, 255 };
-
-        pendulum.drawWheel(screenWidthPx, screenHeightPx, radius, scaleFactor, baseColor); // BEIGE = CLITERAL(Color){ 211, 176, 131, 255 }
+        pendulum.drawWheel(screenWidthPx, screenHeightPx, radius, scaleFactor, BEIGE); // BEIGE = CLITERAL(Color){ 211, 176, 131, 255 }
         pendulum.drawPendulum(screenWidthPx, screenHeightPx, pendulumLength, scaleFactor, pendulumColor);
 
         // Display pendulum values
@@ -155,7 +149,7 @@ int main()
         EndDrawing();
 
         // TODO: This invalidates the up and down arrows for speed control. Figure out how to fix that 
-        timeInterval = GetFrameTime(); // should be deltaTime     
+        // timeInterval = GetFrameTime(); // should be deltaTime     
         pendulum.update(timeInterval); 
         xPosPID.setSetpoint(((GetMouseX()) - (screenWidthPx / 2)) / scaleFactor); // translate mouse x position to pendulum x
         pendulum.calculateErrors(anglePID.getSetpoint(), xPosPID.getSetpoint());
