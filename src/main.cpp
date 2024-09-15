@@ -31,6 +31,7 @@ int main()
     double timeElapsed = 0;
 
     // ----- PID Controller Variables -----
+    // TODO: graph the error over time 
     double angleKp = 100;
     double angleKi = 0.1;
     double angleKd = 80;

@@ -1,5 +1,5 @@
-# ml-unicycle
-Machine Learning Unicycle/Inverted Pendulum Simulator in C++
+# self-balancing-unicycle
+PID controlled Unicycle/Inverted Pendulum Simulator in C++
 
 # Setting Up The Source Code
 ## Requirements
