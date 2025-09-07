@@ -43,8 +43,8 @@ int main()
     bool isControl = true; // is the controller on? is the control loop enabled?
 
     // ----- Visual Representation Variables -----
-    int screenWidthPx = 800;
-    int screenHeightPx = 450;
+    int screenWidthPx = 1920;
+    int screenHeightPx = 1080;
     int cartWidth = 50;
     int cartHeight = 30;
     int radius = 30;

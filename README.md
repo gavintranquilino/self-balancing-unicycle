@@ -1,6 +1,8 @@
 # self-balancing-unicycle
 PID controlled Unicycle/Inverted Pendulum Simulator in C++
 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/7Bg0NbC9u58?si=9BeGKKqyht4STRQQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
 # Setting Up The Source Code
 ## Requirements
 1. Install Git
